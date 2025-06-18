@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Awareness Training</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            color: #374151; /* Dark gray text */
+        }
+        .section-content {
+            display: none; /* Hide all content sections by default */
+        }
+        .section-content.active {
+            display: block; /* Show active content section */
+        }
+        /* Custom styles for buttons to make them look good */
+        .tab-button {
+            background-color: #e5e7eb; /* Light gray background for tabs */
+            color: #4b5563; /* Darker gray text */
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d1d5db;
+        }
+        .tab-button:hover {
+            background-color: #d1d5db; /* Darker on hover */
+            color: #1f2937;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .tab-button.active {
+            background-color: #3b82f6; /* Blue for active tab */
+            color: #ffffff;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.4);
+            border-color: #3b82f6;
+        }
+        .tab-button.active:hover {
+             background-color: #2563eb; /* Darker blue on hover for active */
+             transform: none; /* No lift on active hover */
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .icon {
+            display: inline-block;
+            width: 1.5em;
+            height: 1.5em;
+            vertical-align: middle;
+            margin-right: 0.5em;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
+
+    <!-- Header Section -->
+    <header class="w-full max-w-4xl text-center mb-10">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-blue-700 mb-4 rounded-lg p-4 bg-gradient-to-r from-blue-100 to-indigo-100 shadow-lg">
+            Cybersecurity Awareness Training
+        </h1>
+        <p class="text-xl text-gray-600">Empowering you with essential knowledge to stay safe online.</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="w-full max-w-4xl mb-8 flex flex-wrap justify-center gap-4">
+        <button class="tab-button active" data-target="introduction">
+            <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 12V8h2v4H9zm1-6a1 1 0 110-2 1 1 0 010 2z"></path></svg>
+            Introduction
+        </button>
+        <button class="tab-button" data-target="phishing">
+            <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+            Phishing
+        </button>
+        <button class="tab-button" data-target="passwords">
+            <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2h2a2 2 0 012 2v5a2 2 0 01-2 2H3a2 2 0 01-2-2v-5a2 2 0 012-2h2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+            Strong Passwords
+        </button>
+        <button class="tab-button" data-target="malware">
+            <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 102 0V8a1 1 0 00-.445-.832l-2-1zm-2.01-2.01a1 1 0 01.077-1.48L11.75 2.06a1 1 0 011.48.077l.077.077A1 1 0 0113.168 3.555L9.61 7.113A1 1 0 018.156 7.036z" clip-rule="evenodd"></path></svg>
+            Malware
+        </button>
+        <button class="tab-button" data-target="social-engineering">
+            <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15.5V16a2 2 0 002 2h2v-2.586l-1.293-1.293A1 1 0 0015 13.172V10h-2v1.586l-1.293 1.293A1 1 0 0010 13.172V10h-2v4L5 17h2.5L10 19l2.5-2H18l-3-3zM4 8a2 2 0 11-4 0 2 2 0 014 0z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            Social Engineering
+        </button>
+    </nav>
+
+    <!-- Content Sections -->
+    <main class="w-full max-w-4xl card p-6 sm:p-8">
+
+        <!-- Introduction Section -->
+        <section id="introduction" class="section-content active">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+                <svg class="icon w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 12V8h2v4H9zm1-6a1 1 0 110-2 1 1 0 010 2z"></path></svg>
+                Welcome to Your Cybersecurity Training!
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+                In today's digital world, understanding cybersecurity is crucial for protecting yourself, your data, and your organization. This training package will provide you with fundamental knowledge and practical tips to navigate the online landscape safely.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+                We'll cover common threats like phishing, the importance of strong passwords, how to identify and avoid malware, and recognizing social engineering tactics. Let's get started on becoming more cyber-aware!
+            </p>
+        </section>
+
+        <!-- Phishing Section -->
+        <section id="phishing" class="section-content">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+                <svg class="icon w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                Understanding Phishing Attacks
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+                Phishing is a type of online fraud where attackers attempt to trick you into revealing sensitive information, such as usernames, passwords, or credit card details, by disguising themselves as a trustworthy entity.
+            </p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">How to Spot Phishing:</h3>
+            <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                <li><strong>Suspicious Sender:</strong> Check the sender's email address carefully. It might look similar but have small differences (e.g., `support@amaz0n.com` instead of `support@amazon.com`).</li>
+                <li><strong>Urgent or Threatening Language:</strong> Phishing emails often create a sense of urgency or fear, pushing you to act quickly without thinking.</li>
+                <li><strong>Generic Greetings:</strong> If an email from your "bank" addresses you as "Dear Customer" instead of your name, be wary.</li>
+                <li><strong>Links:</strong> Hover over links before clicking to see the actual URL. If it doesn't match the expected website, don't click!</li>
+                <li><strong>Spelling and Grammar Errors:</strong> Professional organizations typically have well-proofread communications.</li>
+                <li><strong>Requests for Personal Information:</strong> Legitimate companies will rarely ask for sensitive information like passwords via email.</li>
+            </ul>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">What to Do:</h3>
+            <p class="text-gray-700 leading-relaxed">
+                If you suspect a phishing attempt, do not click on any links, download attachments, or reply. Report it to your IT department (if applicable) and then delete the email. If you're unsure, contact the organization directly using their official contact information (not from the suspicious email).
+            </p>
+        </section>
+
+        <!-- Strong Passwords Section -->
+        <section id="passwords" class="section-content">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+                <svg class="icon w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2h2a2 2 0 012 2v5a2 2 0 01-2 2H3a2 2 0 01-2-2v-5a2 2 0 012-2h2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                Creating Strong Passwords
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+                Your password is your first line of defense against unauthorized access to your accounts. A strong, unique password is essential.
+            </p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Characteristics of a Strong Password:</h3>
+            <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                <li><strong>Length:</strong> Aim for at least 12-16 characters. The longer, the better!</li>
+                <li><strong>Complexity:</strong> Include a mix of uppercase letters, lowercase letters, numbers, and special characters (!@#$%^&*).</li>
+                <li><strong>Uniqueness:</strong> Never reuse passwords across different accounts. If one account is compromised, all others using the same password become vulnerable.</li>
+                <li><strong>Memorability (but not obvious):</strong> Use passphrases (e.g., "CorrectHorseBatteryStaple!") or methods that are easy for you to remember but hard for others to guess.</li>
+                <li><strong>Avoid Personal Information:</strong> Don't use your name, birthdate, pet's name, or common dictionary words.</li>
+            </ul>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Best Practices:</h3>
+            <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                <li><strong>Use a Password Manager:</strong> Tools like LastPass, 1Password, or Bitwarden can securely store, generate, and autofill complex, unique passwords for you.</li>
+                <li><strong>Enable Multi-Factor Authentication (MFA/2FA):</strong> This adds an extra layer of security, usually requiring a code from your phone or a biometric scan in addition to your password.</li>
+                <li><strong>Change Default Passwords:</strong> For new devices or services, always change the default password immediately.</li>
+            </ul>
+        </section>
+
+        <!-- Malware Section -->
+        <section id="malware" class="section-content">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+                <svg class="icon w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 102 0V8a1 1 0 00-.445-.832l-2-1zm-2.01-2.01a1 1 0 01.077-1.48L11.75 2.06a1 1 0 011.48.077l.077.077A1 1 0 0113.168 3.555L9.61 7.113A1 1 0 018.156 7.036z" clip-rule="evenodd"></path></svg>
+                Protecting Against Malware
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+                Malware (malicious software) is any software designed to disrupt, damage, or gain unauthorized access to a computer system. This includes viruses, worms, trojans, ransomware, and spyware.
+            </p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Common Ways Malware Spreads:</h3>
+            <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                <li><strong>Email Attachments:</strong> Malicious files attached to emails, often disguised as legitimate documents.</li>
+                <li><strong>Infected Websites:</strong> Visiting compromised websites can automatically download malware (drive-by downloads).</li>
+                <li><strong>Malicious Downloads:</strong> Downloading software from unofficial or untrustworthy sources.</li>
+                <li><strong>USB Drives:</strong> Connecting infected USB drives to your computer.</li>
+            </ul>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Prevention Tips:</h3>
+            <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                <li><strong>Antivirus Software:</strong> Install reputable antivirus/anti-malware software and keep it updated.</li>
+                <li><strong>Software Updates:</strong> Regularly update your operating system, web browser, and all applications. These updates often include security patches for known vulnerabilities.</li>
+                <li><strong>Firewall:</strong> Enable your operating system's firewall to control network traffic.</li>
+                <li><strong>Be Careful with Downloads:</strong> Only download software and files from trusted, official sources.</li>
+                <li><strong>Scan External Devices:</strong> Scan USB drives and other external storage devices before opening files.</li>
+            </ul>
+            <p class="text-gray-700 leading-relaxed">
+                If you suspect your system is infected, disconnect from the internet, run a full scan with your antivirus software, and seek professional help if needed.
+            </p>
+        </section>
+
+        <!-- Social Engineering Section -->
+        <section id="social-engineering" class="section-content">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+                <svg class="icon w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15.5V16a2 2 0 002 2h2v-2.586l-1.293-1.293A1 1 0 0015 13.172V10h-2v1.586l-1.293 1.293A1 1 0 0010 13.172V10h-2v4L5 17h2.5L10 19l2.5-2H18l-3-3zM4 8a2 2 0 11-4 0 2 2 0 014 0z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                Recognizing Social Engineering
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-4">
+                Social engineering is the psychological manipulation of people into performing actions or divulging confidential information. It relies on human error rather than technical exploits.
+            </p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Common Social Engineering Tactics:</h3>
+            <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                <li><strong>Pretexting:</strong> Creating a fabricated scenario to engage a target and obtain information (e.g., pretending to be IT support).</li>
+                <li><strong>Baiting:</strong> Luring victims with a tempting offer (e.g., free movie downloads, infected USB drives left in public places).</li>
+                <li><strong>Quid Pro Quo:</strong> Offering something in return for information (e.g., a "free gift" if you provide your login details).</li>
+                <li><strong>Tailgating/Piggybacking:</strong> Gaining unauthorized access by following someone who has legitimate access (e.g., walking through a secured door right behind an authorized person).</li>
+            </ul>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">How to Protect Yourself:</h3>
+            <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                <li><strong>Be Skeptical:</strong> Always question unsolicited requests for information or access.</li>
+                <li><strong>Verify Identity:</strong> If someone claims to be from a known organization, verify their identity through an official channel (e.g., call them back using a number from their official website, not one they provided).</li>
+                <li><strong>Think Before You Click:</strong> This applies to links and attachments, but also to requests to share information.</li>
+                <li><strong>Guard Your Information:</strong> Don't share sensitive details with unverified sources.</li>
+                <li><strong>Awareness Training:</strong> Continuously educate yourself and your team on new social engineering tactics.</li>
+            </ul>
+            <p class="text-gray-700 leading-relaxed">
+                Remember, the weakest link in cybersecurity is often the human element. By being aware and vigilant, you become a strong defense against social engineering attacks.
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-4xl text-center mt-10 text-gray-500 text-sm">
+        <p>&copy; 2025 Cybersecurity Awareness Training. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const sections = document.querySelectorAll('.section-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and sections
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    sections.forEach(sec => sec.classList.remove('active'));
+
+                    // Add active class to the clicked button
+                    button.classList.add('active');
+
+                    // Get the target section ID from the data-target attribute
+                    const targetId = button.dataset.target;
+                    const targetSection = document.getElementById(targetId);
+
+                    // Add active class to the target section to display it
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
