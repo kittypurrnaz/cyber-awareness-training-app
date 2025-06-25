@@ -1,0 +1,81 @@
+# Cloud Build configuration for Cybersecurity Awareness Training Application
+
+# Define common variables for easy modification.
+# IMPORTANT: Replace `asia-southeast1` with your desired Google Cloud region.
+_REGION: asia-southeast1
+_FRONTEND_IMAGE: cybersecurity-frontend
+_BACKEND_IMAGE: cybersecurity-backend
+# Name of your Artifact Registry repository. Create this in GCP Console first.
+_ARTIFACT_REGISTRY_REPO: cybersecurity-app-images
+
+steps:
+# 1. Build and push the Frontend Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build Frontend Image
+  args:
+  - 'build'
+  - '-t'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_FRONTEND_IMAGE}:latest'
+  - './frontend' # Path to your frontend Dockerfile context
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push Frontend Image
+  args:
+  - 'push'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_FRONTEND_IMAGE}:latest'
+
+# 2. Build and push the Backend Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build Backend Image
+  args:
+  - 'build'
+  - '-t'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_BACKEND_IMAGE}:latest'
+  - './backend' # Path to your backend Dockerfile context
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push Backend Image
+  args:
+  - 'push'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_BACKEND_IMAGE}:latest'
+
+# 3. Deploy Frontend to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  id: Deploy Frontend to Cloud Run
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'cybersecurity-frontend-service' # Desired name for your Cloud Run service
+  - '--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_FRONTEND_IMAGE}:latest'
+  - '--region=${_REGION}'
+  - '--allow-unauthenticated' # Allows public access to the frontend website
+  - '--platform=managed'
+  - '--port=8080' # Must match the EXPOSE port in frontend/Dockerfile
+
+# 4. Deploy Backend to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  id: Deploy Backend to Cloud Run
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - 'cybersecurity-backend-service' # Desired name for your Cloud Run service
+  - '--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_BACKEND_IMAGE}:latest'
+  - '--region=${_REGION}'
+  - '--no-allow-unauthenticated' # Backend services typically require authentication (e.g., from frontend)
+  - '--platform=managed'
+  - '--port=8080' # Must match the listening port in backend/app.js
+  # Example: If you integrate Firebase Auth, you might pass environment variables like:
+  # - '--set-env-vars=FIREBASE_API_KEY=YOUR_FIREBASE_API_KEY,FIREBASE_PROJECT_ID=$PROJECT_ID'
+
+# List the images built by Cloud Build. This tells Cloud Build to store these images.
+images:
+- '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_FRONTEND_IMAGE}:latest'
+- '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_BACKEND_IMAGE}:latest'
+
+# Required permissions for the Cloud Build service account:
+# Ensure your Cloud Build service account (usually `[PROJECT_NUMBER]@cloudbuild.gserviceaccount.com`)
+# has the following roles:
+# - Cloud Run Admin
+# - Service Account User (on the Cloud Run runtime service account, usually `[PROJECT_NUMBER]-compute@developer.gserviceaccount.com`)
+# - Artifact Registry Writer
+# - Storage Admin (for Cloud Build internal operations)
