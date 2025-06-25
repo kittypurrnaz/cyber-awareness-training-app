@@ -6,7 +6,7 @@ _REGION: asia-southeast1
 _FRONTEND_IMAGE: cybersecurity-frontend
 _BACKEND_IMAGE: cybersecurity-backend
 # Name of your Artifact Registry repository. Create this in GCP Console first.
-_ARTIFACT_REGISTRY_REPO: cybersecurity-app-images
+_ARTIFACT_REGISTRY_REPO: cyber-awareness-training-app
 
 steps:
 # 1. Build and push the Frontend Docker image
