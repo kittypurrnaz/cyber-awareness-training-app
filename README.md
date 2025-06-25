@@ -1,4 +1,5 @@
-Cybersecurity Awareness Training Application
+**Cybersecurity Awareness Training Application
+**
 This repository contains the code for a cybersecurity awareness training application, designed to be deployed as microservices on Google Cloud Run.
 
 Project Structure
