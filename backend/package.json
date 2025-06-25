@@ -1,0 +1,15 @@
+{
+  "name": "cybersecurity-backend",
+  "version": "1.0.0",
+  "description": "Backend microservice for Cybersecurity Awareness Training. Handles user authentication and data.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {},
+  "author": "Your Name",
+  "license": "ISC"
+}
